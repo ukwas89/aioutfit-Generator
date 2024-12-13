@@ -6,12 +6,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import OutfitCard from "@/components/OutfitCard";
 import { Progress } from "@/components/ui/progress";
-
-declare global {
-  interface Window {
-    grecaptcha: any;
-  }
-}
+import CustomCaptcha from "@/components/CustomCaptcha";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -19,17 +14,8 @@ const Index = () => {
   const [style, setStyle] = useState("");
   const [occasion, setOccasion] = useState("");
   const [progress, setProgress] = useState(0);
-  const [captchaResponse, setCaptchaResponse] = useState<string | null>(null);
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    // Load reCAPTCHA script
-    const script = document.createElement('script');
-    script.src = 'https://www.google.com/recaptcha/api.js';
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -58,18 +44,14 @@ const Index = () => {
       return;
     }
 
-    // Verify reCAPTCHA
-    const recaptchaResponse = window.grecaptcha.getResponse();
-    if (!recaptchaResponse) {
+    if (!isCaptchaValid) {
       toast({
         title: "CAPTCHA verification required",
-        description: "Please complete the CAPTCHA to generate outfits.",
+        description: "Please enter the correct CAPTCHA code.",
         variant: "destructive",
       });
       return;
     }
-
-    setCaptchaResponse(recaptchaResponse);
 
     setLoading(true);
     try {
@@ -97,7 +79,7 @@ const Index = () => {
     } finally {
       setLoading(false);
       setProgress(100);
-      window.grecaptcha.reset(); // Reset CAPTCHA after use
+      setIsCaptchaValid(false); // Reset CAPTCHA validation after use
     }
   };
 
@@ -146,13 +128,9 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Visible reCAPTCHA */}
-          <div className="flex justify-center my-4">
-            <div 
-              className="g-recaptcha" 
-              data-sitekey="6LdqVBQqAAAAALgxUrTVpOAI9Gj6JqfkWD_Qw1Ub" 
-              data-callback="onCaptchaSuccess"
-            ></div>
+          {/* Custom CAPTCHA */}
+          <div className="my-4">
+            <CustomCaptcha onVerify={setIsCaptchaValid} />
           </div>
 
           {loading && (
