@@ -25,80 +25,92 @@ const OutfitCard = ({
   const imageCategories = {
     youth: {
       male: [
+        // Unsplash
         "https://images.unsplash.com/photo-1503919545889-aef636e10ad4",
-        "https://images.unsplash.com/photo-1513269890889-8e4e362e5593",
         "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8",
-        "https://images.unsplash.com/photo-1600486913747-55e5470d6f40",
-        "https://images.unsplash.com/photo-1618886614638-80e3c103d31a",
-        "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4",
-        "https://images.unsplash.com/photo-1519764622345-23439dd774f7",
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d",
-        "https://images.unsplash.com/photo-1534030347209-467a5b0ad3e6",
-        "https://images.unsplash.com/photo-1531310197839-ccf54634509e"
+        // Pexels
+        "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg",
+        "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg",
+        // Pixabay
+        "https://cdn.pixabay.com/photo/2017/06/26/02/47/man-2442565_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/11/29/09/32/man-1868632_1280.jpg",
+        // Picsum
+        "https://picsum.photos/seed/youth-male-1/800/600",
+        "https://picsum.photos/seed/youth-male-2/800/600"
       ],
       female: [
+        // Unsplash
         "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb",
         "https://images.unsplash.com/photo-1617952385804-7b326fa42766",
-        "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
-        "https://images.unsplash.com/photo-1618721405821-80ebc4b63d26",
-        "https://images.unsplash.com/photo-1617059322001-a61b0ce36afc",
-        "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec",
-        "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
-        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9",
-        "https://images.unsplash.com/photo-1524250502761-1ac6f2e30d43"
+        // Pexels
+        "https://images.pexels.com/photos/1462637/pexels-photo-1462637.jpeg",
+        "https://images.pexels.com/photos/1375849/pexels-photo-1375849.jpeg",
+        // Pixabay
+        "https://cdn.pixabay.com/photo/2018/01/29/17/01/woman-3116587_1280.jpg",
+        "https://cdn.pixabay.com/photo/2017/08/06/12/06/people-2591874_1280.jpg",
+        // Picsum
+        "https://picsum.photos/seed/youth-female-1/800/600",
+        "https://picsum.photos/seed/youth-female-2/800/600"
       ]
     },
     adult: {
       male: [
+        // Unsplash
         "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f",
-        "https://images.unsplash.com/photo-1618886614638-80e3c103d31a",
         "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
-        "https://images.unsplash.com/photo-1600486913747-55e5470d6f40",
-        "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4",
-        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
-        "https://images.unsplash.com/photo-1463453091185-61582044d556",
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+        // Pexels
+        "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
+        "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg",
+        // Pixabay
+        "https://cdn.pixabay.com/photo/2016/11/18/19/07/man-1836085_1280.jpg",
+        "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg",
+        // Picsum
+        "https://picsum.photos/seed/adult-male-1/800/600",
+        "https://picsum.photos/seed/adult-male-2/800/600"
       ],
       female: [
+        // Unsplash
         "https://images.unsplash.com/photo-1539109136881-3be0616acf4b",
         "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
-        "https://images.unsplash.com/photo-1594744803329-e58b31de8bf5",
-        "https://images.unsplash.com/photo-1617922001439-4a2e6562f328",
-        "https://images.unsplash.com/photo-1618721405821-80ebc4b63d26",
-        "https://images.unsplash.com/photo-1616683693504-3ea7e9ad6fec",
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2",
-        "https://images.unsplash.com/photo-1531123897727-8f129e1688ce",
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+        // Pexels
+        "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
+        "https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg",
+        // Pixabay
+        "https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/11/29/13/54/woman-1869761_1280.jpg",
+        // Picsum
+        "https://picsum.photos/seed/adult-female-1/800/600",
+        "https://picsum.photos/seed/adult-female-2/800/600"
       ]
     },
     senior: {
       male: [
+        // Unsplash
         "https://images.unsplash.com/photo-1437915015400-137312b61975",
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
-        "https://images.unsplash.com/photo-1595152452543-e5fc28ebc2b8",
-        "https://images.unsplash.com/photo-1559963110-71b394e7494d",
-        "https://images.unsplash.com/photo-1546525848-3ce03ca516f6",
-        "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d",
-        "https://images.unsplash.com/photo-1504257432389-52343af06ae3",
-        "https://images.unsplash.com/photo-1572965733194-784e4b4efa45",
-        "https://images.unsplash.com/photo-1559526324-593bc073d938",
-        "https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8"
+        // Pexels
+        "https://images.pexels.com/photos/834863/pexels-photo-834863.jpeg",
+        "https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg",
+        // Pixabay
+        "https://cdn.pixabay.com/photo/2016/11/21/11/32/elderly-1844729_1280.jpg",
+        "https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg",
+        // Picsum
+        "https://picsum.photos/seed/senior-male-1/800/600",
+        "https://picsum.photos/seed/senior-male-2/800/600"
       ],
       female: [
+        // Unsplash
         "https://images.unsplash.com/photo-1581591524425-c7e0978865fc",
         "https://images.unsplash.com/photo-1552692723-a4d2e6f8acd3",
-        "https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8",
-        "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91",
-        "https://images.unsplash.com/photo-1631947430066-48c30d57b943",
-        "https://images.unsplash.com/photo-1597223557154-721c1cecc4b0",
-        "https://images.unsplash.com/photo-1580489944761-15a19d654956",
-        "https://images.unsplash.com/photo-1499952127939-9bbf5af6c51c",
-        "https://images.unsplash.com/photo-1508002366005-75a695ee2d17",
-        "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+        // Pexels
+        "https://images.pexels.com/photos/2050994/pexels-photo-2050994.jpeg",
+        "https://images.pexels.com/photos/2050999/pexels-photo-2050999.jpeg",
+        // Pixabay
+        "https://cdn.pixabay.com/photo/2016/11/29/11/24/woman-1869115_1280.jpg",
+        "https://cdn.pixabay.com/photo/2015/06/22/08/40/senior-817735_1280.jpg",
+        // Picsum
+        "https://picsum.photos/seed/senior-female-1/800/600",
+        "https://picsum.photos/seed/senior-female-2/800/600"
       ]
     }
   };
@@ -123,8 +135,8 @@ const OutfitCard = ({
     // Notify parent component about the selected image
     onImageSelected(selectedImage);
     
-    // Return the image URL with quality parameters
-    return `${selectedImage}?auto=format&fit=crop&w=800&q=80&timestamp=${Date.now()}`;
+    // Return the image URL with quality parameters and timestamp to prevent caching
+    return `${selectedImage}?timestamp=${Date.now()}`;
   };
 
   useEffect(() => {
