@@ -22,6 +22,7 @@ const OutfitCard = ({
 }: OutfitCardProps) => {
   const [currentImage, setCurrentImage] = useState<string>("");
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const imageCategories = {
     youth: {
@@ -120,26 +121,29 @@ const OutfitCard = ({
     let categoryImages = imageCategories[age as keyof typeof imageCategories]?.[gender as 'male' | 'female'] || 
                         imageCategories.adult.male;
     
-    let availableImages = categoryImages.filter(img => !usedImages.includes(img));
+    // Strictly filter out all previously used images
+    const availableImages = categoryImages.filter(img => !usedImages.includes(img));
     
+    // If no unique images are available, return null to prevent showing the card
     if (availableImages.length === 0) {
-      const lastUsedImage = currentImage.split('?')[0];
-      availableImages = categoryImages.filter(img => img !== lastUsedImage);
+      return null;
     }
     
     const randomIndex = Math.floor(Math.random() * availableImages.length);
     const selectedImage = availableImages[randomIndex];
     
     onImageSelected(selectedImage);
-    
     return `${selectedImage}?timestamp=${Date.now()}`;
   };
 
   useEffect(() => {
     const updateImage = () => {
       setIsLoading(true);
+      setHasError(false);
       const newImage = getRandomImage();
-      setCurrentImage(newImage);
+      if (newImage) {
+        setCurrentImage(newImage);
+      }
     };
 
     if (!currentImage || shouldRefresh) {
@@ -147,8 +151,9 @@ const OutfitCard = ({
     }
   }, [shouldRefresh]);
 
-  // Only render the card when we have both an image and description
-  if (!currentImage || !description) {
+  // Don't render the card if we don't have both image and description,
+  // or if we encountered an error, or if we couldn't get a unique image
+  if (!currentImage || !description || hasError) {
     return null;
   }
 
@@ -164,8 +169,7 @@ const OutfitCard = ({
             }`}
             onLoad={() => setIsLoading(false)}
             onError={(e) => {
-              const target = e.target as HTMLImageElement;
-              target.src = "https://placehold.co/600x400/png?text=Outfit+Image";
+              setHasError(true);
               setIsLoading(false);
             }}
           />
