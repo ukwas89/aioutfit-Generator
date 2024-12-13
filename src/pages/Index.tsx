@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import GeneratorForm from "@/components/GeneratorForm";
 import OutfitResults from "@/components/OutfitResults";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
@@ -92,46 +94,94 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen p-6 md:p-12 bg-gradient-to-b from-background to-secondary">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-            AI Outfit Generator
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Get personalized outfit suggestions based on your style preferences
-          </p>
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-secondary">
+      <Header />
+      
+      <main className="flex-grow">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+          <div className="text-center space-y-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+              AI Outfit Generator
+            </h1>
+            <p className="text-lg text-muted-foreground">
+              Get personalized outfit suggestions based on your style preferences
+            </p>
+          </div>
+
+          <section id="tutorial" className="prose prose-gray max-w-none">
+            <h2 className="text-3xl font-semibold text-center mb-8">How to Use Style Muse AI</h2>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              <div className="outfit-card">
+                <h3 className="text-xl font-semibold mb-4">1. Define Your Style</h3>
+                <p>
+                  Select your preferred fashion style from our curated list of options. Whether you're into casual streetwear, business professional, or bohemian chic, our AI understands your aesthetic preferences.
+                </p>
+              </div>
+              <div className="outfit-card">
+                <h3 className="text-xl font-semibold mb-4">2. Specify the Occasion</h3>
+                <p>
+                  Tell us where you're heading - a business meeting, casual brunch, wedding, or date night. Our fashion AI will generate outfits perfectly suited for your event.
+                </p>
+              </div>
+              <div className="outfit-card">
+                <h3 className="text-xl font-semibold mb-4">3. Personalize</h3>
+                <p>
+                  Customize your results by selecting your age group and gender preference. This helps our AI create more relevant and personalized outfit suggestions.
+                </p>
+              </div>
+              <div className="outfit-card">
+                <h3 className="text-xl font-semibold mb-4">4. Generate Outfits</h3>
+                <p>
+                  Click the generate button and watch as our advanced AI creates multiple outfit combinations. Each suggestion comes with detailed descriptions and matching visuals.
+                </p>
+              </div>
+              <div className="outfit-card">
+                <h3 className="text-xl font-semibold mb-4">5. Explore Options</h3>
+                <p>
+                  Browse through multiple outfit suggestions, complete with real-world fashion images. Our AI ensures diversity in style while maintaining your preferences.
+                </p>
+              </div>
+              <div className="outfit-card">
+                <h3 className="text-xl font-semibold mb-4">6. Save & Share</h3>
+                <p>
+                  Found the perfect outfit? Save your favorite combinations and share them with friends. Build your personal style collection for future reference.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <Card className="p-6">
+            <GeneratorForm
+              style={style}
+              setStyle={setStyle}
+              occasion={occasion}
+              setOccasion={setOccasion}
+              age={age}
+              setAge={setAge}
+              gender={gender}
+              setGender={setGender}
+              loading={loading}
+              progress={progress}
+              isCaptchaValid={isCaptchaValid}
+              setIsCaptchaValid={setIsCaptchaValid}
+              onGenerate={generateOutfit}
+            />
+          </Card>
+
+          {outfits.length > 0 && (
+            <OutfitResults
+              outfits={outfits}
+              age={age}
+              gender={gender}
+              usedImages={usedImages}
+              onImageSelected={handleImageSelected}
+              shouldRefreshImages={shouldRefreshImages}
+            />
+          )}
         </div>
+      </main>
 
-        <Card className="p-6">
-          <GeneratorForm
-            style={style}
-            setStyle={setStyle}
-            occasion={occasion}
-            setOccasion={setOccasion}
-            age={age}
-            setAge={setAge}
-            gender={gender}
-            setGender={setGender}
-            loading={loading}
-            progress={progress}
-            isCaptchaValid={isCaptchaValid}
-            setIsCaptchaValid={setIsCaptchaValid}
-            onGenerate={generateOutfit}
-          />
-        </Card>
-
-        {outfits.length > 0 && (
-          <OutfitResults
-            outfits={outfits}
-            age={age}
-            gender={gender}
-            usedImages={usedImages}
-            onImageSelected={handleImageSelected}
-            shouldRefreshImages={shouldRefreshImages}
-          />
-        )}
-      </div>
+      <Footer />
     </div>
   );
 };
