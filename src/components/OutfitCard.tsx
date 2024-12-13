@@ -105,7 +105,13 @@ const OutfitCard = ({
   };
 
   useEffect(() => {
-    if (shouldRefresh) {
+    // Set initial image when component mounts
+    if (!currentImage) {
+      const newImage = getRandomImage();
+      setCurrentImage(newImage);
+    }
+    // Update image when shouldRefresh changes
+    else if (shouldRefresh) {
       const newImage = getRandomImage();
       setCurrentImage(newImage);
     }
