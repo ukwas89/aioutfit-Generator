@@ -17,6 +17,7 @@ const Index = () => {
   const [gender, setGender] = useState("unisex");
   const [progress, setProgress] = useState(0);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+  const [usedImages, setUsedImages] = useState<string[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -56,13 +57,17 @@ const Index = () => {
     }
 
     setLoading(true);
+    setUsedImages([]); // Reset used images when generating new outfits
+    
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
+      // Generate at least 4 outfit descriptions
       const mockOutfits = [
         `For a ${occasion} in ${style} style, try: A tailored blazer in navy blue, paired with high-waisted cream trousers, and leather loafers.`,
         `Another ${style} option for ${occasion}: A silk blouse in blush pink, matched with a pleated midi skirt and pointed toe heels.`,
-        `${style} alternative for ${occasion}: A cashmere sweater in camel, dark wash jeans, and suede ankle boots.`
+        `${style} alternative for ${occasion}: A cashmere sweater in camel, dark wash jeans, and suede ankle boots.`,
+        `Perfect for ${occasion} in ${style}: A structured dress in emerald green, accessorized with gold jewelry and classic pumps.`
       ];
       
       setOutfits(mockOutfits);
@@ -81,6 +86,10 @@ const Index = () => {
       setProgress(100);
       setIsCaptchaValid(false);
     }
+  };
+
+  const handleImageSelected = (image: string) => {
+    setUsedImages(prev => [...prev, image]);
   };
 
   return (
@@ -191,6 +200,8 @@ const Index = () => {
                 imageIndex={index} 
                 age={age}
                 gender={gender}
+                usedImages={usedImages}
+                onImageSelected={handleImageSelected}
               />
             ))}
           </div>

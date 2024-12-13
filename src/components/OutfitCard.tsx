@@ -6,10 +6,17 @@ interface OutfitCardProps {
   imageIndex: number;
   age?: string;
   gender?: string;
+  usedImages: string[];
+  onImageSelected: (image: string) => void;
 }
 
-const OutfitCard = ({ description, imageIndex, age = "adult", gender = "unisex" }: OutfitCardProps) => {
-  // Using categorized fashion-related images
+const OutfitCard = ({ 
+  description, 
+  age = "adult", 
+  gender = "unisex", 
+  usedImages,
+  onImageSelected 
+}: OutfitCardProps) => {
   const imageCategories = {
     youth: {
       male: [
@@ -58,8 +65,20 @@ const OutfitCard = ({ description, imageIndex, age = "adult", gender = "unisex" 
   const getRandomImage = () => {
     const categoryImages = imageCategories[age as keyof typeof imageCategories]?.[gender as 'male' | 'female'] || 
                          imageCategories.adult.male;
-    const randomIndex = Math.floor(Math.random() * categoryImages.length);
-    return categoryImages[randomIndex];
+    
+    // Filter out already used images
+    const availableImages = categoryImages.filter(img => !usedImages.includes(img));
+    
+    // If all images have been used, reset and use all images
+    const imagesToUse = availableImages.length > 0 ? availableImages : categoryImages;
+    
+    const randomIndex = Math.floor(Math.random() * imagesToUse.length);
+    const selectedImage = imagesToUse[randomIndex];
+    
+    // Notify parent component about the selected image
+    onImageSelected(selectedImage);
+    
+    return selectedImage;
   };
 
   return (
