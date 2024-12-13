@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import Footer from "@/components/Footer";
-import emailjs from '@emailjs/browser';
 
 const ContactUs = () => {
   const navigate = useNavigate();
@@ -22,24 +21,28 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     try {
-      await emailjs.send(
-        'service_id', // Replace with your EmailJS service ID
-        'template_id', // Replace with your EmailJS template ID
-        {
-          to_email: 'seokate7@gmail.com',
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.reason,
+      const response = await fetch(`https://formsubmit.co/ajax/seokate7@gmail.com`, {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
-        'public_key' // Replace with your EmailJS public key
-      );
-
-      toast({
-        title: "Thank you for contacting us!",
-        description: "We will get back to you soon.",
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.reason,
+        }),
       });
-      
-      setFormData({ name: "", email: "", reason: "" });
+
+      if (response.ok) {
+        toast({
+          title: "Thank you for contacting us!",
+          description: "We will get back to you soon.",
+        });
+        setFormData({ name: "", email: "", reason: "" });
+      } else {
+        throw new Error('Failed to send message');
+      }
     } catch (error) {
       toast({
         title: "Error",
