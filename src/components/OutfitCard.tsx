@@ -121,18 +121,23 @@ const OutfitCard = ({
     let categoryImages = imageCategories[age as keyof typeof imageCategories]?.[gender as 'male' | 'female'] || 
                         imageCategories.adult.male;
     
-    // Strictly filter out all previously used images
+    // Filter out all previously used images
     const availableImages = categoryImages.filter(img => !usedImages.includes(img));
     
-    // If no unique images are available, return null to prevent showing the card
+    // If no unique images are available, return null
     if (availableImages.length === 0) {
+      console.log('No unique images available');
       return null;
     }
     
+    // Get a random image from the available ones
     const randomIndex = Math.floor(Math.random() * availableImages.length);
     const selectedImage = availableImages[randomIndex];
     
+    // Notify parent component about the selected image
     onImageSelected(selectedImage);
+    
+    // Return the image URL with a timestamp to prevent caching
     return `${selectedImage}?timestamp=${Date.now()}`;
   };
 
@@ -143,6 +148,8 @@ const OutfitCard = ({
       const newImage = getRandomImage();
       if (newImage) {
         setCurrentImage(newImage);
+      } else {
+        setHasError(true);
       }
     };
 
@@ -168,7 +175,7 @@ const OutfitCard = ({
               isLoading ? 'opacity-0' : 'opacity-100'
             }`}
             onLoad={() => setIsLoading(false)}
-            onError={(e) => {
+            onError={() => {
               setHasError(true);
               setIsLoading(false);
             }}
