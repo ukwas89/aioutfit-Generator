@@ -104,19 +104,16 @@ const OutfitCard = ({
   };
 
   const getRandomImage = () => {
-    const categoryImages = imageCategories[age as keyof typeof imageCategories]?.[gender as 'male' | 'female'] || 
-                         imageCategories.adult.male;
+    let categoryImages = imageCategories[age as keyof typeof imageCategories]?.[gender as 'male' | 'female'] || 
+                        imageCategories.adult.male;
     
-    // Filter out already used images
-    const availableImages = categoryImages.filter(img => !usedImages.includes(img));
+    // Filter out all previously used images
+    let availableImages = categoryImages.filter(img => !usedImages.includes(img));
     
-    // If no unique images are available, return a random one from the category
+    // If no unique images are available, reset the category but avoid the last used image
     if (availableImages.length === 0) {
-      console.warn('No more unique images available');
-      const randomIndex = Math.floor(Math.random() * categoryImages.length);
-      const selectedImage = categoryImages[randomIndex];
-      onImageSelected(selectedImage);
-      return `${selectedImage}?auto=format&fit=crop&w=800&q=80`;
+      const lastUsedImage = currentImage.split('?')[0];
+      availableImages = categoryImages.filter(img => img !== lastUsedImage);
     }
     
     // Select a random image from available ones
@@ -127,19 +124,22 @@ const OutfitCard = ({
     onImageSelected(selectedImage);
     
     // Return the image URL with quality parameters
-    return `${selectedImage}?auto=format&fit=crop&w=800&q=80`;
+    return `${selectedImage}?auto=format&fit=crop&w=800&q=80&timestamp=${Date.now()}`;
   };
 
   useEffect(() => {
-    // Set initial image when component mounts
-    if (!currentImage) {
+    const updateImage = () => {
       const newImage = getRandomImage();
       setCurrentImage(newImage);
+    };
+
+    // Set initial image when component mounts
+    if (!currentImage) {
+      updateImage();
     }
     // Update image when shouldRefresh changes
     else if (shouldRefresh) {
-      const newImage = getRandomImage();
-      setCurrentImage(newImage);
+      updateImage();
     }
   }, [shouldRefresh]);
 
