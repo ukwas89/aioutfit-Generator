@@ -10,7 +10,7 @@ const Header = () => {
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
               <img src="/favicon.ico" alt="Style Muse Logo" className="w-8 h-8" />
-              <h1 className="text-xl font-bold text-primary">Style Muse AI</h1>
+              <h1 className="text-xl font-bold text-primary">AI Outfit Generator</h1>
             </div>
             <nav className="hidden md:flex items-center space-x-4">
               <Link to="/" className="flex items-center space-x-1 text-gray-600 hover:text-primary">
@@ -23,10 +23,7 @@ const Header = () => {
               </Link>
             </nav>
           </div>
-          <Button variant="outline" className="flex items-center gap-2">
-            <Github className="w-4 h-4" />
-            <span>Star on GitHub</span>
-          </Button>
+      
         </div>
       </div>
     </header>
