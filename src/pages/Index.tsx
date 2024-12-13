@@ -3,7 +3,6 @@ import { Card } from "@/components/ui/card";
 import { useToast } from "@/components/ui/use-toast";
 import GeneratorForm from "@/components/GeneratorForm";
 import OutfitResults from "@/components/OutfitResults";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Index = () => {
@@ -95,8 +94,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-background to-secondary">
-      <Header />
-      
       <main className="flex-grow">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
           <div className="text-center space-y-4">
