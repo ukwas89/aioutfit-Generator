@@ -5,23 +5,50 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import Footer from "@/components/Footer";
+import emailjs from '@emailjs/browser';
 
 const ContactUs = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     reason: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: "Thank you for contacting us!",
-      description: "We will get back to you soon.",
-    });
-    setFormData({ name: "", email: "", reason: "" });
+    setIsSubmitting(true);
+
+    try {
+      await emailjs.send(
+        'service_id', // Replace with your EmailJS service ID
+        'template_id', // Replace with your EmailJS template ID
+        {
+          to_email: 'seokate7@gmail.com',
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.reason,
+        },
+        'public_key' // Replace with your EmailJS public key
+      );
+
+      toast({
+        title: "Thank you for contacting us!",
+        description: "We will get back to you soon.",
+      });
+      
+      setFormData({ name: "", email: "", reason: "" });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -94,8 +121,8 @@ const ContactUs = () => {
               />
             </div>
 
-            <Button type="submit" className="w-full">
-              Submit
+            <Button type="submit" disabled={isSubmitting} className="w-full">
+              {isSubmitting ? "Sending..." : "Submit"}
             </Button>
           </form>
         </div>
