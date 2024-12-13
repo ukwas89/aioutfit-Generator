@@ -21,6 +21,7 @@ const OutfitCard = ({
   shouldRefresh 
 }: OutfitCardProps) => {
   const [currentImage, setCurrentImage] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const imageCategories = {
     youth: {
@@ -119,54 +120,61 @@ const OutfitCard = ({
     let categoryImages = imageCategories[age as keyof typeof imageCategories]?.[gender as 'male' | 'female'] || 
                         imageCategories.adult.male;
     
-    // Filter out all previously used images
     let availableImages = categoryImages.filter(img => !usedImages.includes(img));
     
-    // If no unique images are available, reset the category but avoid the last used image
     if (availableImages.length === 0) {
       const lastUsedImage = currentImage.split('?')[0];
       availableImages = categoryImages.filter(img => img !== lastUsedImage);
     }
     
-    // Select a random image from available ones
     const randomIndex = Math.floor(Math.random() * availableImages.length);
     const selectedImage = availableImages[randomIndex];
     
-    // Notify parent component about the selected image
     onImageSelected(selectedImage);
     
-    // Return the image URL with quality parameters and timestamp to prevent caching
     return `${selectedImage}?timestamp=${Date.now()}`;
   };
 
   useEffect(() => {
     const updateImage = () => {
+      setIsLoading(true);
       const newImage = getRandomImage();
       setCurrentImage(newImage);
     };
 
-    // Set initial image when component mounts
-    if (!currentImage) {
-      updateImage();
-    }
-    // Update image when shouldRefresh changes
-    else if (shouldRefresh) {
+    if (!currentImage || shouldRefresh) {
       updateImage();
     }
   }, [shouldRefresh]);
 
+  // Only render the card when we have both an image and description
+  if (!currentImage || !description) {
+    return null;
+  }
+
   return (
     <Card className="outfit-card hover:scale-[1.02] transition-transform duration-300">
       <CardContent className="pt-6 space-y-4">
-        <img
-          src={currentImage}
-          alt="Outfit suggestion"
-          className="w-full h-48 object-cover rounded-md"
-          onError={(e) => {
-            const target = e.target as HTMLImageElement;
-            target.src = "https://placehold.co/600x400/png?text=Outfit+Image";
-          }}
-        />
+        <div className="relative">
+          <img
+            src={currentImage}
+            alt="Outfit suggestion"
+            className={`w-full h-48 object-cover rounded-md transition-opacity duration-300 ${
+              isLoading ? 'opacity-0' : 'opacity-100'
+            }`}
+            onLoad={() => setIsLoading(false)}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.src = "https://placehold.co/600x400/png?text=Outfit+Image";
+              setIsLoading(false);
+            }}
+          />
+          {isLoading && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="loading-spinner" />
+            </div>
+          )}
+        </div>
         <div className="flex items-start space-x-4">
           <Sparkles className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
           <p className="text-foreground leading-relaxed">{description}</p>
