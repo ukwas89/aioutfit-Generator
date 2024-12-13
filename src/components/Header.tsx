@@ -9,7 +9,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
-              <img src="/favicon.ico" alt="Style Muse Logo" className="w-8 h-8" />
+              <img src="/favicon.ico" alt="AI Outfit Generator Logo" className="w-8 h-8" />
               <h1 className="text-xl font-bold text-primary">AI Outfit Generator</h1>
             </div>
             <nav className="hidden md:flex items-center space-x-4">
