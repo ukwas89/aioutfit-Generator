@@ -13,6 +13,8 @@ const Index = () => {
   const [outfits, setOutfits] = useState<string[]>([]);
   const [style, setStyle] = useState("");
   const [occasion, setOccasion] = useState("");
+  const [age, setAge] = useState("adult");
+  const [gender, setGender] = useState("unisex");
   const [progress, setProgress] = useState(0);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const { toast } = useToast();
@@ -55,10 +57,8 @@ const Index = () => {
 
     setLoading(true);
     try {
-      // Simulate API call with setTimeout
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Mock generated outfits
       const mockOutfits = [
         `For a ${occasion} in ${style} style, try: A tailored blazer in navy blue, paired with high-waisted cream trousers, and leather loafers.`,
         `Another ${style} option for ${occasion}: A silk blouse in blush pink, matched with a pleated midi skirt and pointed toe heels.`,
@@ -79,7 +79,7 @@ const Index = () => {
     } finally {
       setLoading(false);
       setProgress(100);
-      setIsCaptchaValid(false); // Reset CAPTCHA validation after use
+      setIsCaptchaValid(false);
     }
   };
 
@@ -126,9 +126,33 @@ const Index = () => {
                 </SelectContent>
               </Select>
             </div>
+
+            <div className="space-y-2">
+              <Select value={age} onValueChange={setAge}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select age group" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="youth">Youth (13-25)</SelectItem>
+                  <SelectItem value="adult">Adult (26-50)</SelectItem>
+                  <SelectItem value="senior">Senior (51+)</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Select value={gender} onValueChange={setGender}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="male">Male</SelectItem>
+                  <SelectItem value="female">Female</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
-          {/* Custom CAPTCHA */}
           <div className="my-4">
             <CustomCaptcha onVerify={setIsCaptchaValid} />
           </div>
@@ -161,7 +185,13 @@ const Index = () => {
         {outfits.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {outfits.map((outfit, index) => (
-              <OutfitCard key={index} description={outfit} imageIndex={index} />
+              <OutfitCard 
+                key={index} 
+                description={outfit} 
+                imageIndex={index} 
+                age={age}
+                gender={gender}
+              />
             ))}
           </div>
         )}
