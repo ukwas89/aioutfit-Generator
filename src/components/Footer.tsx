@@ -30,6 +30,11 @@ const Footer = () => {
                   Terms of Service
                 </Link>
               </li>
+              <li>
+                <Link to="/contact" className="text-primary hover:underline">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
