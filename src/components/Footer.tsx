@@ -4,7 +4,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">About Style Muse</h3>
+            <h3 className="text-lg font-semibold mb-4">About AI Outfit Generator</h3>
             <p className="text-gray-600">
               An AI-powered fashion assistant that helps you create perfect outfits for any occasion.
             </p>
@@ -37,7 +37,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-200 text-center text-gray-600">
-          <p>© {new Date().getFullYear()} Style Muse AI. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} AI Outfit Generator. All rights reserved.</p>
         </div>
       </div>
     </footer>
