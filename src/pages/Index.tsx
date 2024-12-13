@@ -135,7 +135,7 @@ const Index = () => {
           )}
 
           <section id="tutorial" className="prose prose-gray max-w-none mt-16">
-            <h2 className="text-3xl font-semibold text-center mb-8">How to Use Style Muse AI</h2>
+            <h2 className="text-3xl font-semibold text-center mb-8">How to Use AI Outfit Generator</h2>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <div className="outfit-card">
                 <h3 className="text-xl font-semibold mb-4">1. Define Your Style</h3>
