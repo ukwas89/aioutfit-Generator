@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface OutfitCardProps {
   description: string;
@@ -8,6 +9,7 @@ interface OutfitCardProps {
   gender?: string;
   usedImages: string[];
   onImageSelected: (image: string) => void;
+  shouldRefresh: boolean;
 }
 
 const OutfitCard = ({ 
@@ -15,8 +17,11 @@ const OutfitCard = ({
   age = "adult", 
   gender = "unisex", 
   usedImages,
-  onImageSelected 
+  onImageSelected,
+  shouldRefresh 
 }: OutfitCardProps) => {
+  const [currentImage, setCurrentImage] = useState<string>("");
+
   const imageCategories = {
     youth: {
       male: [
@@ -81,11 +86,18 @@ const OutfitCard = ({
     return selectedImage;
   };
 
+  useEffect(() => {
+    if (shouldRefresh) {
+      const newImage = getRandomImage();
+      setCurrentImage(newImage);
+    }
+  }, [shouldRefresh]);
+
   return (
     <Card className="outfit-card hover:scale-[1.02] transition-transform duration-300">
       <CardContent className="pt-6 space-y-4">
         <img
-          src={getRandomImage()}
+          src={currentImage}
           alt="Outfit suggestion"
           className="w-full h-48 object-cover rounded-md"
           onError={(e) => {

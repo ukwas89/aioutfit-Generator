@@ -18,6 +18,7 @@ const Index = () => {
   const [progress, setProgress] = useState(0);
   const [isCaptchaValid, setIsCaptchaValid] = useState(false);
   const [usedImages, setUsedImages] = useState<string[]>([]);
+  const [shouldRefreshImages, setShouldRefreshImages] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -57,12 +58,12 @@ const Index = () => {
     }
 
     setLoading(true);
+    setShouldRefreshImages(false);
     setUsedImages([]); // Reset used images when generating new outfits
     
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Generate at least 4 outfit descriptions
       const mockOutfits = [
         `For a ${occasion} in ${style} style, try: A tailored blazer in navy blue, paired with high-waisted cream trousers, and leather loafers.`,
         `Another ${style} option for ${occasion}: A silk blouse in blush pink, matched with a pleated midi skirt and pointed toe heels.`,
@@ -71,6 +72,8 @@ const Index = () => {
       ];
       
       setOutfits(mockOutfits);
+      setShouldRefreshImages(true);
+      
       toast({
         title: "Outfits generated!",
         description: "Here are some stylish suggestions for you.",
@@ -202,6 +205,7 @@ const Index = () => {
                 gender={gender}
                 usedImages={usedImages}
                 onImageSelected={handleImageSelected}
+                shouldRefresh={shouldRefreshImages}
               />
             ))}
           </div>
