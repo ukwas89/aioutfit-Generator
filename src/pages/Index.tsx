@@ -19,7 +19,17 @@ const Index = () => {
   const [style, setStyle] = useState("");
   const [occasion, setOccasion] = useState("");
   const [progress, setProgress] = useState(0);
+  const [captchaResponse, setCaptchaResponse] = useState<string | null>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Load reCAPTCHA script
+    const script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -49,24 +59,17 @@ const Index = () => {
     }
 
     // Verify reCAPTCHA
-    try {
-      const recaptchaResponse = await window.grecaptcha.execute();
-      if (!recaptchaResponse) {
-        toast({
-          title: "CAPTCHA verification failed",
-          description: "Please verify that you are human.",
-          variant: "destructive",
-        });
-        return;
-      }
-    } catch (error) {
+    const recaptchaResponse = window.grecaptcha.getResponse();
+    if (!recaptchaResponse) {
       toast({
-        title: "CAPTCHA error",
-        description: "Please try again.",
+        title: "CAPTCHA verification required",
+        description: "Please complete the CAPTCHA to generate outfits.",
         variant: "destructive",
       });
       return;
     }
+
+    setCaptchaResponse(recaptchaResponse);
 
     setLoading(true);
     try {
@@ -94,6 +97,7 @@ const Index = () => {
     } finally {
       setLoading(false);
       setProgress(100);
+      window.grecaptcha.reset(); // Reset CAPTCHA after use
     }
   };
 
@@ -142,6 +146,15 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Visible reCAPTCHA */}
+          <div className="flex justify-center my-4">
+            <div 
+              className="g-recaptcha" 
+              data-sitekey="6LdqVBQqAAAAALgxUrTVpOAI9Gj6JqfkWD_Qw1Ub" 
+              data-callback="onCaptchaSuccess"
+            ></div>
+          </div>
+
           {loading && (
             <div className="space-y-2">
               <Progress value={progress} className="w-full" />
@@ -150,8 +163,6 @@ const Index = () => {
               </p>
             </div>
           )}
-
-          <div className="g-recaptcha" data-sitekey="YOUR_SITE_KEY" data-size="invisible"></div>
 
           <Button 
             className="w-full"
