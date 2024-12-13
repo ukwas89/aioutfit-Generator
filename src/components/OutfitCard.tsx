@@ -25,92 +25,92 @@ const OutfitCard = ({
   const imageCategories = {
     youth: {
       male: [
-        // Unsplash
+        // Unsplash - young men fashion
         "https://images.unsplash.com/photo-1503919545889-aef636e10ad4",
         "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8",
-        // Pexels
+        // Pexels - young men fashion
         "https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg",
         "https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg",
-        // Pixabay
+        // Pixabay - young men fashion
         "https://cdn.pixabay.com/photo/2017/06/26/02/47/man-2442565_1280.jpg",
         "https://cdn.pixabay.com/photo/2016/11/29/09/32/man-1868632_1280.jpg",
-        // Picsum
-        "https://picsum.photos/seed/youth-male-1/800/600",
-        "https://picsum.photos/seed/youth-male-2/800/600"
+        // Additional Unsplash young men
+        "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
+        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
       ],
       female: [
-        // Unsplash
+        // Unsplash - young women fashion
         "https://images.unsplash.com/photo-1621452773781-0f992fd1f5cb",
         "https://images.unsplash.com/photo-1617952385804-7b326fa42766",
-        // Pexels
+        // Pexels - young women fashion
         "https://images.pexels.com/photos/1462637/pexels-photo-1462637.jpeg",
         "https://images.pexels.com/photos/1375849/pexels-photo-1375849.jpeg",
-        // Pixabay
+        // Pixabay - young women fashion
         "https://cdn.pixabay.com/photo/2018/01/29/17/01/woman-3116587_1280.jpg",
         "https://cdn.pixabay.com/photo/2017/08/06/12/06/people-2591874_1280.jpg",
-        // Picsum
-        "https://picsum.photos/seed/youth-female-1/800/600",
-        "https://picsum.photos/seed/youth-female-2/800/600"
+        // Additional Unsplash young women
+        "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+        "https://images.unsplash.com/photo-1517841905240-472988babdf9"
       ]
     },
     adult: {
       male: [
-        // Unsplash
+        // Unsplash - adult men fashion
         "https://images.unsplash.com/photo-1617137984095-74e4e5e3613f",
         "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
-        // Pexels
+        // Pexels - adult men fashion
         "https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg",
         "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg",
-        // Pixabay
+        // Pixabay - adult men fashion
         "https://cdn.pixabay.com/photo/2016/11/18/19/07/man-1836085_1280.jpg",
         "https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_1280.jpg",
-        // Picsum
-        "https://picsum.photos/seed/adult-male-1/800/600",
-        "https://picsum.photos/seed/adult-male-2/800/600"
+        // Additional Unsplash adult men
+        "https://images.unsplash.com/photo-1480429370139-e0132c086e2a",
+        "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce"
       ],
       female: [
-        // Unsplash
+        // Unsplash - adult women fashion
         "https://images.unsplash.com/photo-1539109136881-3be0616acf4b",
         "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f",
-        // Pexels
+        // Pexels - adult women fashion
         "https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg",
         "https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg",
-        // Pixabay
+        // Pixabay - adult women fashion
         "https://cdn.pixabay.com/photo/2017/08/06/15/13/woman-2593366_1280.jpg",
         "https://cdn.pixabay.com/photo/2016/11/29/13/54/woman-1869761_1280.jpg",
-        // Picsum
-        "https://picsum.photos/seed/adult-female-1/800/600",
-        "https://picsum.photos/seed/adult-female-2/800/600"
+        // Additional Unsplash adult women
+        "https://images.unsplash.com/photo-1534528741775-53994a69daeb",
+        "https://images.unsplash.com/photo-1488426862026-3ee34a7d66df"
       ]
     },
     senior: {
       male: [
-        // Unsplash
+        // Unsplash - senior men fashion
         "https://images.unsplash.com/photo-1437915015400-137312b61975",
         "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
-        // Pexels
+        // Pexels - senior men fashion
         "https://images.pexels.com/photos/834863/pexels-photo-834863.jpeg",
         "https://images.pexels.com/photos/1139743/pexels-photo-1139743.jpeg",
-        // Pixabay
+        // Pixabay - senior men fashion
         "https://cdn.pixabay.com/photo/2016/11/21/11/32/elderly-1844729_1280.jpg",
         "https://cdn.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg",
-        // Picsum
-        "https://picsum.photos/seed/senior-male-1/800/600",
-        "https://picsum.photos/seed/senior-male-2/800/600"
+        // Additional Unsplash senior men
+        "https://images.unsplash.com/photo-1559963043-3d19915bec6b",
+        "https://images.unsplash.com/photo-1566616213894-2d4e1baee5d8"
       ],
       female: [
-        // Unsplash
+        // Unsplash - senior women fashion
         "https://images.unsplash.com/photo-1581591524425-c7e0978865fc",
         "https://images.unsplash.com/photo-1552692723-a4d2e6f8acd3",
-        // Pexels
+        // Pexels - senior women fashion
         "https://images.pexels.com/photos/2050994/pexels-photo-2050994.jpeg",
         "https://images.pexels.com/photos/2050999/pexels-photo-2050999.jpeg",
-        // Pixabay
+        // Pixabay - senior women fashion
         "https://cdn.pixabay.com/photo/2016/11/29/11/24/woman-1869115_1280.jpg",
         "https://cdn.pixabay.com/photo/2015/06/22/08/40/senior-817735_1280.jpg",
-        // Picsum
-        "https://picsum.photos/seed/senior-female-1/800/600",
-        "https://picsum.photos/seed/senior-female-2/800/600"
+        // Additional Unsplash senior women
+        "https://images.unsplash.com/photo-1442458370899-ae20e367c5d8",
+        "https://images.unsplash.com/photo-1566616213818-56d8d50e7e6b"
       ]
     }
   };
