@@ -108,7 +108,36 @@ const Index = () => {
             </p>
           </div>
 
-          <section id="tutorial" className="prose prose-gray max-w-none">
+          <Card className="p-6">
+            <GeneratorForm
+              style={style}
+              setStyle={setStyle}
+              occasion={occasion}
+              setOccasion={setOccasion}
+              age={age}
+              setAge={setAge}
+              gender={gender}
+              setGender={setGender}
+              loading={loading}
+              progress={progress}
+              isCaptchaValid={isCaptchaValid}
+              setIsCaptchaValid={setIsCaptchaValid}
+              onGenerate={generateOutfit}
+            />
+          </Card>
+
+          {outfits.length > 0 && (
+            <OutfitResults
+              outfits={outfits}
+              age={age}
+              gender={gender}
+              usedImages={usedImages}
+              onImageSelected={handleImageSelected}
+              shouldRefreshImages={shouldRefreshImages}
+            />
+          )}
+
+          <section id="tutorial" className="prose prose-gray max-w-none mt-16">
             <h2 className="text-3xl font-semibold text-center mb-8">How to Use Style Muse AI</h2>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               <div className="outfit-card">
@@ -149,35 +178,6 @@ const Index = () => {
               </div>
             </div>
           </section>
-
-          <Card className="p-6">
-            <GeneratorForm
-              style={style}
-              setStyle={setStyle}
-              occasion={occasion}
-              setOccasion={setOccasion}
-              age={age}
-              setAge={setAge}
-              gender={gender}
-              setGender={setGender}
-              loading={loading}
-              progress={progress}
-              isCaptchaValid={isCaptchaValid}
-              setIsCaptchaValid={setIsCaptchaValid}
-              onGenerate={generateOutfit}
-            />
-          </Card>
-
-          {outfits.length > 0 && (
-            <OutfitResults
-              outfits={outfits}
-              age={age}
-              gender={gender}
-              usedImages={usedImages}
-              onImageSelected={handleImageSelected}
-              shouldRefreshImages={shouldRefreshImages}
-            />
-          )}
         </div>
       </main>
 
