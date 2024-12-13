@@ -1,25 +1,68 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 import OutfitCard from "@/components/OutfitCard";
+import { Progress } from "@/components/ui/progress";
+
+declare global {
+  interface Window {
+    grecaptcha: any;
+  }
+}
 
 const Index = () => {
   const [loading, setLoading] = useState(false);
   const [outfits, setOutfits] = useState<string[]>([]);
   const [style, setStyle] = useState("");
   const [occasion, setOccasion] = useState("");
+  const [progress, setProgress] = useState(0);
   const { toast } = useToast();
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (loading) {
+      setProgress(0);
+      interval = setInterval(() => {
+        setProgress(prev => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            return 100;
+          }
+          return prev + 10;
+        });
+      }, 150);
+    }
+    return () => clearInterval(interval);
+  }, [loading]);
 
   const generateOutfit = async () => {
     if (!style || !occasion) {
       toast({
         title: "Please fill in all fields",
         description: "Both style and occasion are required to generate an outfit.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Verify reCAPTCHA
+    try {
+      const recaptchaResponse = await window.grecaptcha.execute();
+      if (!recaptchaResponse) {
+        toast({
+          title: "CAPTCHA verification failed",
+          description: "Please verify that you are human.",
+          variant: "destructive",
+        });
+        return;
+      }
+    } catch (error) {
+      toast({
+        title: "CAPTCHA error",
+        description: "Please try again.",
         variant: "destructive",
       });
       return;
@@ -50,6 +93,7 @@ const Index = () => {
       });
     } finally {
       setLoading(false);
+      setProgress(100);
     }
   };
 
@@ -68,7 +112,6 @@ const Index = () => {
         <Card className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="style">Style Preference</Label>
               <Select value={style} onValueChange={setStyle}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select your style" />
@@ -84,7 +127,6 @@ const Index = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="occasion">Occasion</Label>
               <Select value={occasion} onValueChange={setOccasion}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select the occasion" />
@@ -99,6 +141,17 @@ const Index = () => {
               </Select>
             </div>
           </div>
+
+          {loading && (
+            <div className="space-y-2">
+              <Progress value={progress} className="w-full" />
+              <p className="text-sm text-center text-muted-foreground">
+                Generating your outfits... {progress}%
+              </p>
+            </div>
+          )}
+
+          <div className="g-recaptcha" data-sitekey="YOUR_SITE_KEY" data-size="invisible"></div>
 
           <Button 
             className="w-full"
@@ -119,7 +172,7 @@ const Index = () => {
         {outfits.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {outfits.map((outfit, index) => (
-              <OutfitCard key={index} description={outfit} />
+              <OutfitCard key={index} description={outfit} imageIndex={index} />
             ))}
           </div>
         )}
