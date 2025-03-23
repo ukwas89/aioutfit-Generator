@@ -35,6 +35,11 @@ const Footer = () => {
                   Contact Us
                 </Link>
               </li>
+                            <li>
+                <Link to="https://aitohumantextconverterfree.net/" className="text-primary hover:underline">
+                  ai to human text converter free
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
